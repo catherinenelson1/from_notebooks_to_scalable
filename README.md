@@ -20,7 +20,7 @@ I'm the author of "Software Engineering for Data Scientists", published by O'Rei
 
 ### Tools in this talk
 
-- [Jupytext](https://jupytext.readthedocs.io/en/latest/)
+- [Jupytext](https://jupytext.readthedocs.io/en/latest/) can convert notebooks to paired Python scripts.
 
 - Use [nbconvert](https://nbconvert.readthedocs.io/en/latest/usage.html#convert-script) to convert a notebook to a script.
 
