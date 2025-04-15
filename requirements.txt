@@ -1,0 +1,8 @@
+jupyterlab==4.4.0
+jupytext==1.17.0
+matplotlib==3.10.1
+nbconvert==7.16.6
+numpy==2.2.3
+pandas==2.2.3
+pytest==8.3.5
+scikit-learn==1.6.1
