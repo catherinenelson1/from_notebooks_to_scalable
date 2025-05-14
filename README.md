@@ -16,6 +16,21 @@ I'm the author of "Software Engineering for Data Scientists", published by O'Rei
 * Connect on [LinkedIn](https://www.linkedin.com/in/catherinenelson1/)
 * Follow me on [BlueSky](https://bsky.app/profile/catnelson.bsky.social)
 
+## Files in this repository
+
+*from_notebooks.pdf* contains the slides for the PyCon 2025 talk.
+
+*penguins_notebook.ipynb* is a typical "data science" style notebook, with few functions and many instances where the data is displayed. It contains a training pipeline for a model to predict penguin species.
+
+*penguins_refactored.py* is the same code, but refactored into a script that is robust and reproducible.
+
+*test_penguins_refactored.py* contains unit tests for the functions in _penguins_refactored.py_
+
+_requirements.txt_ contains the dependencies for this code.
+
+The folder *files_for_presentation* contains the draft files I used to prepare the slides.
+
+
 ## Links and references
 
 ### Tools in this talk
