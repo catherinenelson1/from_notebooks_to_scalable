@@ -2,7 +2,6 @@ import requests
 
 def download_data(file_path):
     # download the dataset if it doesn't exist already
-    # return a pandas DataFrame
     try:
         with open(file_path, 'rb') as file:
             return pd.read_csv(file)
@@ -57,11 +56,21 @@ def train_model(X_train, y_train, X_test, y_test, model_filename):
     accuracy = clf.score(X_test, y_test)
     print(f'Model accuracy: {accuracy:.2f}')
     joblib.dump(clf, model_filename)
+    
+
+def predict_new_data(X_new):
+    # load the model and make predictions
+    # return a string of the predicted class
+    clf = joblib.load(MODEL_FILENAME)
+    prediction = clf.predict(X_new)
+    # decode the prediction
+    encoder = joblib.load(ENCODER_FILENAME)
+    predicted_class = encoder.inverse_transform(prediction)
+    return predicted_class[0]
 
 
-def run_training_pipeline(encoder_filename, model_filename):
+def run_training_pipeline(data_file_path, encoder_filename, model_filename):
     # load data
-    data_file_path = 'penguins_data.csv'
     download_data(data_file_path)
     
     # clean data
@@ -72,22 +81,12 @@ def run_training_pipeline(encoder_filename, model_filename):
     
     # train model
     train_model(X_train, y_train, X_test, y_test, model_filename)
-    
-
-def predict_new_data(X_new):
-    # load the model and make predictions
-    # return a string of the predicted class
-    clf = joblib.load(MODEL_FILENAME)
-    prediction = clf.predict(X_new)
-    # decode the prediction
-    encoder = joblib.load('penguins_label_encoder.joblib')
-    predicted_class = encoder.inverse_transform(prediction)
-    return predicted_class[0]
 
 
 MODEL_FILENAME = 'penguins_model.joblib'
 ENCODER_FILENAME = 'penguins_label_encoder.joblib'
+DATA_FILE_PATH = 'penguins_data.csv'
 
 if __name__ == "__main__":
-    run_training_pipeline(ENCODER_FILENAME, MODEL_FILENAME)
+    run_training_pipeline(DATA_FILE_PATH, ENCODER_FILENAME, MODEL_FILENAME)
 

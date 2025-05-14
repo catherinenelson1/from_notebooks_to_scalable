@@ -25,3 +25,10 @@ def predict_new_data(X_new):
     # load the model and make predictions
     # return a string of the predicted class
     pass
+
+def run_training_pipeline():
+    # load data
+    # clean data
+    # preprocess data
+    # train model
+    pass

@@ -12,27 +12,25 @@ ENCODER_FILENAME = 'test_penguins_label_encoder.joblib'
 MODEL_FILENAME = 'test_penguins_model.joblib'
 
 
-# Create test data file
 def create_test_data():
     test_data = pd.DataFrame({
-        'species': ['Adelie', 'Gentoo', 'Chinstrap', None],
+        'species': ['Adelie', 'Gentoo', 'Chinstrap'],
         'bill_length_mm': [39.1, 46.5, 49.7, None],
         'bill_depth_mm': [18.7, 14.3, 16.0, None],
         'flipper_length_mm': [181, 217, 193, None],
-        'body_mass_g': [3750, 5200, 3800, None]
+        'body_mass_g': [3750, 5200, 3800, None],
     })
     test_data.to_csv('test_penguins.csv', index=False)
 
 
 def test_clean_data():
-    """Test clean_data function with actual file"""
-    # Create test data file
+    # Arrange - create the data
     create_test_data()
     
-    # Test the function
+    # Act - test the function
     features, labels = clean_data('test_penguins.csv')
     
-    # Check results
+    # Assert - check results
     assert features.shape == (3, 4)
     assert labels.shape == (3,)
     assert 'Adelie' in labels
