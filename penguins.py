@@ -19,10 +19,10 @@ def _():
     # dataset from https://github.com/mwaskom/seaborn-data/blob/master/penguins.csv
     import requests
 
-    url = 'https://raw.githubusercontent.com/mwaskom/seaborn-data/refs/heads/master/penguins.csv'
+    url = "https://raw.githubusercontent.com/mwaskom/seaborn-data/refs/heads/master/penguins.csv"
     response = requests.get(url)
 
-    with open('penguins_data.csv', 'wb') as file:
+    with open("penguins_data.csv", "wb") as file:
         file.write(response.content)
     return
 
@@ -40,12 +40,13 @@ def _(mo):
 @app.cell
 def _():
     import pandas as pd
+
     return (pd,)
 
 
 @app.cell
 def _(pd):
-    df = pd.read_csv('penguins_data.csv')
+    df = pd.read_csv("penguins_data.csv")
     return (df,)
 
 
@@ -63,7 +64,15 @@ def _(df):
 
 @app.cell
 def _(df):
-    df_1 = df.dropna(subset=['species', 'bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g'])
+    df_1 = df.dropna(
+        subset=[
+            "species",
+            "bill_length_mm",
+            "bill_depth_mm",
+            "flipper_length_mm",
+            "body_mass_g",
+        ]
+    )
     return (df_1,)
 
 
@@ -75,7 +84,15 @@ def _(df_1):
 
 @app.cell
 def _(df_1):
-    df_2 = df_1[['species', 'bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g']]
+    df_2 = df_1[
+        [
+            "species",
+            "bill_length_mm",
+            "bill_depth_mm",
+            "flipper_length_mm",
+            "body_mass_g",
+        ]
+    ]
     return (df_2,)
 
 
@@ -87,14 +104,16 @@ def _(df_2):
 
 @app.cell
 def _(df_2):
-    df_2['species'].value_counts()
+    df_2["species"].value_counts()
     return
 
 
 @app.cell
 def _(df_2):
-    features = df_2[['bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g']].to_numpy()
-    values = df_2['species'].to_numpy()
+    features = df_2[
+        ["bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"]
+    ].to_numpy()
+    values = df_2["species"].to_numpy()
     return features, values
 
 
@@ -112,6 +131,7 @@ def _(mo):
 def _():
     from sklearn.preprocessing import StandardScaler, LabelEncoder
     from sklearn.model_selection import train_test_split
+
     return LabelEncoder, StandardScaler, train_test_split
 
 
@@ -145,7 +165,9 @@ def _(values_encoded):
 @app.cell
 def _(features_scaled, train_test_split, values_encoded):
     # split the data into training and testing sets
-    X_train, X_test, y_train, y_test = train_test_split(features_scaled, values_encoded, test_size=0.2, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(
+        features_scaled, values_encoded, test_size=0.2, random_state=42
+    )
     return X_test, X_train, y_test, y_train
 
 
@@ -164,6 +186,7 @@ def _():
     from sklearn.linear_model import LogisticRegression
     from sklearn.ensemble import RandomForestClassifier
     from sklearn.metrics import classification_report, confusion_matrix
+
     return (
         LogisticRegression,
         RandomForestClassifier,
@@ -187,7 +210,11 @@ def _(X_test, clf):
 
 @app.cell
 def _(classification_report, y_pred, y_test):
-    print(classification_report(y_test, y_pred, target_names=['Adelie', 'Gentoo', 'Chinstrap']))
+    print(
+        classification_report(
+            y_test, y_pred, target_names=["Adelie", "Gentoo", "Chinstrap"]
+        )
+    )
     return
 
 
@@ -248,6 +275,7 @@ def _(mo):
 def _():
     import matplotlib.pyplot as plt
     import numpy as np
+
     return np, plt
 
 
@@ -261,12 +289,21 @@ def _(clf):
 def _(coefficients, np, plt):
     plt.figure(figsize=(10, 6))
     for i in range(coefficients.shape[0]):
-        plt.plot(np.arange(coefficients.shape[1]), coefficients[i], marker='o', label=f'Class {i}')
+        plt.plot(
+            np.arange(coefficients.shape[1]),
+            coefficients[i],
+            marker="o",
+            label=f"Class {i}",
+        )
 
-    plt.xticks(np.arange(coefficients.shape[1]), ['bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g'], rotation=45)
-    plt.xlabel('Features')
-    plt.ylabel('Coefficient Value')
-    plt.title('Logistic Regression Coefficients')
+    plt.xticks(
+        np.arange(coefficients.shape[1]),
+        ["bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"],
+        rotation=45,
+    )
+    plt.xlabel("Features")
+    plt.ylabel("Coefficient Value")
+    plt.title("Logistic Regression Coefficients")
     plt.legend()
     plt.grid(True)
     plt.show()
@@ -276,9 +313,9 @@ def _(coefficients, np, plt):
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 
 if __name__ == "__main__":
     app.run()
-
